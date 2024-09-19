@@ -41,6 +41,16 @@ public class PlaneScript : MonoBehaviour
         cameraObject.transform.position = cameraPosition;
 
         cameraObject.transform.LookAt(transform.position);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            forwardSpeed += 10;
+        }
+
+        forwardSpeed -= transform.forward.y * 5 * Time.deltaTime;
+        forwardSpeed = Mathf.Max(0, forwardSpeed);
+
+        
     }
 
     // Detect collision with collectables
