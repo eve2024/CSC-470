@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlaneScript : MonoBehaviour
 {
     public Terrain terrain;
 
     public GameObject cameraObject;
+
+     public TMP_Text scoreText;
+
+    int score = 0;
     // These variables will control how the plane moves
     float forwardSpeed = 12f;
     float xRotationSpeed = 90f; 
@@ -65,7 +70,17 @@ public class PlaneScript : MonoBehaviour
     {
         if (other.CompareTag("collectable"))
         {
+              score++;
+
+            scoreText.text = "Score: " + score;
+
             Destroy(other.gameObject);
+        }
+
+         else if (other.CompareTag("wall")) 
+        {
+            // Check to see if we hit a big invisible wall, and if so turn around!
+            transform.Rotate(0, 180, 0, Space.World);
         }
     }
 }
