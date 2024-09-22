@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlaneScript : MonoBehaviour
 {
+    public Terrain terrain;
 
     public GameObject cameraObject;
     // These variables will control how the plane moves
@@ -33,6 +34,12 @@ public class PlaneScript : MonoBehaviour
 
     
         transform.position += transform.forward * forwardSpeed * Time.deltaTime;
+
+        float terrainHeight = terrain.SampleHeight(transform.position);
+            if (transform.position.y < terrainHeight) 
+            {
+            forwardSpeed = 0;
+            }
 
         //Camera position
         Vector3 cameraPosition = transform.position;
