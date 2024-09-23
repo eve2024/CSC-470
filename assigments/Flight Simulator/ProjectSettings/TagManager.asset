@@ -7,6 +7,7 @@ TagManager:
   - collectable
   - terrain
   - wall
+  - tree
   layers:
   - Default
   - TransparentFX

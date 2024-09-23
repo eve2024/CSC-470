@@ -16,15 +16,22 @@ public class PlaneScript : MonoBehaviour
     float forwardSpeed = 12f;
     float xRotationSpeed = 90f; 
     float yRotationSpeed = 90f; 
+    // make the plane speed up when collids 
+    float speedDecayRate = .5f;
+    float speedBoostAmount = 5f;
+    float minSpeed = 5f;
+    float maxSpeed = 30f;
 
-    float boostTime;
+
+    //float boostTime;
 
     // Start is called before the first frame update
+     public Vector3 startPosition;
     void Start()
     {
         startPosition = transform.position;
     }
-    public Vector3 startPosition;
+   
     // Update is called once per frame
     void Update()
     {
@@ -36,7 +43,9 @@ public class PlaneScript : MonoBehaviour
         amountToRotate.y = hAxis * yRotationSpeed;
         amountToRotate *= Time.deltaTime;
         transform.Rotate(amountToRotate, Space.Self);
-
+        
+        forwardSpeed -= speedDecayRate * Time.deltaTime;
+        forwardSpeed = Mathf.Max(minSpeed, forwardSpeed);
     
         transform.position += transform.forward * forwardSpeed * Time.deltaTime;
 
@@ -73,6 +82,9 @@ public class PlaneScript : MonoBehaviour
               score++;
 
             scoreText.text = "Score: " + score;
+
+            forwardSpeed += speedBoostAmount;
+            forwardSpeed = Mathf.Min(forwardSpeed, maxSpeed);
 
             Destroy(other.gameObject);
         }
