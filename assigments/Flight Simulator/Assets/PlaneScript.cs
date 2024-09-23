@@ -22,9 +22,9 @@ public class PlaneScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        startPosition = transform.position;
     }
-
+    public Vector3 startPosition;
     // Update is called once per frame
     void Update()
     {
@@ -81,6 +81,10 @@ public class PlaneScript : MonoBehaviour
         {
             // Check to see if we hit a big invisible wall, and if so turn around!
             transform.Rotate(0, 180, 0, Space.World);
+        }
+        else if (other.CompareTag("tree"))
+        {
+            transform.position = startPosition; 
         }
     }
 }
