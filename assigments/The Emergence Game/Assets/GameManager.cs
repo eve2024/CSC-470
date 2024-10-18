@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject cellPrefab;
-
+    public GameObject player;
     public Vector3 playerStartPosition;
 
     CellScript[,] grid;
@@ -17,8 +17,23 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-        playerStartPosition = player.transform.position;
+           // player start position 
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+
+       
+        if (player != null)
+        {
+            playerStartPosition = player.transform.position;
+            Debug.Log("Player start position: " + playerStartPosition);
+        }
+        else
+        {
+            Debug.LogError("Player object not found! Make sure the player has the 'Player' tag or is assigned.");
+        }
+    
        
 
 
@@ -28,15 +43,12 @@ public class GameManager : MonoBehaviour
         grid = new CellScript[10,10];
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
-                // Use the x, y interator variables to compute each cell's position. If this is confusing
-                // to you, try thinking about instantiating a row of cells rather than a grid, and using
-                // the iterator variable of a single for loop to compute the position.
                 Vector3 pos = transform.position;
                 pos.x += x * spacing;
                 pos.z += y * spacing;
                 GameObject cell = Instantiate(cellPrefab, pos, Quaternion.identity);
                 grid[x,y] = cell.GetComponent<CellScript>();
-                grid[x,y].alive = (Random.value > 0.5f); // Assign random true or false to the alive of the cell.
+                grid[x,y].alive = (Random.value > 0.5f); 
                 grid[x,y].xIndex = x;
                 grid[x,y].yIndex = y;
             }
@@ -51,14 +63,13 @@ public class GameManager : MonoBehaviour
         {
             for (int y = yIndex - 1; y <= yIndex + 1; y++)
             {
-                // This if prevents us from indexing the two dimensional array out of bounds
+            
                 if (x >= 0 && x < 10 && y >= 0 && y < 10)
                 {
-                    // This if makes sure we don't consider the cell itself while counting its
-                    // neighbors
+                 
                     if (!(x == xIndex && y == yIndex))
                     {
-                        // If one of the surrounding cells is alive, increment the alive count.
+                    
                         if (grid[x,y].alive)
                         {
                             count++;
@@ -75,9 +86,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         simulationTimer -= Time.deltaTime;
-        // This if statement will fire ever "simulationRate" amount of time. This is
-        // called the "timer pattern" and you should use something like it whenever you
-        // want to have timed events that happen at a cinsistent rhythm.
         if (simulationTimer < 0) {
             if (Input.GetKey(KeyCode.Space)) {
                 // Evolve our grid
@@ -85,6 +93,7 @@ public class GameManager : MonoBehaviour
                 simulationTimer = simulationRate;
             }
         }
+        
     }
 
     void Simulate()
@@ -95,10 +104,6 @@ public class GameManager : MonoBehaviour
             for (int y = 0; y < 10; y++)
             {
                 int neighborCount = CountNeighbors(x, y);
-                // Update the cell's alive value based on Conway's Game of Life rules. Note, that we 
-                // don't directly update the grid, as we don't want subsequent cells being updated to
-                // take into account the updated alive value. Once we've updated all cells in nextAlive
-                // we will copy the alive values back into the cells in the grid.
                 if (grid[x,y].alive && neighborCount < 2) {
                     // underpopulation
                     nextAlive[x,y] = false;
@@ -119,24 +124,24 @@ public class GameManager : MonoBehaviour
 
         // Copy over updated values of alive
         for (int x = 0; x < 10; x++)
-        {
+       {
             for (int y = 0; y < 10; y++)
             {
-                // Copy over the updated value
+            // Copy over the updated value
                 grid[x,y].alive = nextAlive[x,y];
 
-                // Below is an example of some interesting things you can do based on the updated value
-                if (grid[x,y].alive) {
+                
+               if (grid[x,y].alive) {
                     // Increment how many times the cell has ever been alive (we use this in SetColor to have
                     // the cell's color based on how many times it has been alive).
-                    grid[x,y].aliveCount++;
+                   grid[x,y].aliveCount++;
 
                     // Make it so that we make the cell a little taller every time it is alive.
-                    grid[x,y].gameObject.transform.localScale = new Vector3(grid[x,y].gameObject.transform.localScale.x, 
-                                                                        grid[x,y].gameObject.transform.localScale.y + .3f, 
-                                                                        grid[x,y].gameObject.transform.localScale.z);
+             //       grid[x,y].gameObject.transform.localScale = new Vector3(grid[x,y].gameObject.transform.localScale.x, 
+             //                                                           grid[x,y].gameObject.transform.localScale.y + .3f, 
+             //                                                           grid[x,y].gameObject.transform.localScale.z);
                 }
-
+//
                 // Call SetColor which will deal with setting the color based on the specific cell's data (alive/aliveCount)
                 grid[x,y].SetColor();
             }

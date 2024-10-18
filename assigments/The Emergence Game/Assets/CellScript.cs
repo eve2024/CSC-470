@@ -38,7 +38,6 @@ public class CellScript : MonoBehaviour
         alive = !alive;
         SetColor();
 
-        // Count my neighbors!
         int neighborCount = gameManager.CountNeighbors(xIndex, yIndex);
         Debug.Log("(" + xIndex + "," + yIndex + "): " + neighborCount);
     }
@@ -50,16 +49,17 @@ public class CellScript : MonoBehaviour
         }
         //cubeRenderer.material.color = Color.HSVToRGB(aliveCount / 75f, 0.6f, 1f);
     }
-
+// if player steps on dead cell they return to starting position, if player steps on alive cell the pattern changes
     void OnTriggerEnter(Collider other)
     {
+      Debug.Log("Trigger entered by: " + other.name); // Check if player is detected
+
         if (other.CompareTag("Player"))
         {
             if (!alive)
             {
-                Transform playerTransfrom = other.transform;
-                playerTransfrom.position = gameManager.playerStartPosition;
-                Debug.Log("Player stepped on a dead cell! Resetting position.");
+                other.transform.position = gameManager.playerStartPosition;
+                Debug.Log("Player stepped on a dead cell! Resetting position to start.");
             }
             else 
             {
