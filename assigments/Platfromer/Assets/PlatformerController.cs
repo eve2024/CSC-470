@@ -11,6 +11,8 @@ public class PlatformerController : MonoBehaviour
 
     float yVelocity = 0;
     float gravity = -9.8f;
+    // how long we have be falling
+    float fallingTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,12 @@ public class PlatformerController : MonoBehaviour
 
         if (!cc.isGrounded) 
         {
+            fallingTime += Time.deltaTime;
+            if (fallingTime < 0.5f && Input.GetKeyDown(KeyCode.Space))
+            {
+                yVelocity = jumpVelocity;
+            }
+
             // If we go in this block of code, cc.isGrounded is false, which means
             // the last time cc.Move was called, we did not try to enter the ground.
 
@@ -49,6 +57,8 @@ public class PlatformerController : MonoBehaviour
             // Set velocity downward so that the CharacterController collides with the
             // ground again, and isGrounded is set to true.
             yVelocity = -2;
+
+            fallingTime = 0;
 
             // Jump!
             if (Input.GetKeyDown(KeyCode.Space)) 
