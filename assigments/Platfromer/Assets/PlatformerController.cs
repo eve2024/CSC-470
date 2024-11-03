@@ -5,30 +5,27 @@ using UnityEngine;
 public class PlatformerController : MonoBehaviour
 {
     public CharacterController cc;
+    public Camera mainCamera; // Reference to the camera
+
     float rotateSpeed = 90;
     float moveSpeed = 12;
     float jumpVelocity = 8;
 
     float yVelocity = 0;
     float gravity = -9.8f;
-    // how long we have be falling
     float fallingTime = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        // No need for initial camera offset; we'll set the camera position in Update.
     }
 
-    // Update is called once per frame
     void Update()
     {
-       float hAxis = Input.GetAxis("Horizontal");
+        float hAxis = Input.GetAxis("Horizontal");
         float vAxis = Input.GetAxis("Vertical");
 
         // --- ROTATION ---
-        // Rotate on the y axis based on the hAxis value
-        // NOTE: If the player isn't pressing left or right, hAxis will be 0 and there will be no rotation
         transform.Rotate(0, rotateSpeed * hAxis * Time.deltaTime, 0);
 
         if (!cc.isGrounded) 
@@ -39,46 +36,41 @@ public class PlatformerController : MonoBehaviour
                 yVelocity = jumpVelocity;
             }
 
-            // If we go in this block of code, cc.isGrounded is false, which means
-            // the last time cc.Move was called, we did not try to enter the ground.
-
-            // If the player releases space and the player is moving upwards, stop upward velocity
-            // so that the player begins to fall.
             if (yVelocity > 0 && Input.GetKeyUp(KeyCode.Space))
             {
                 yVelocity = 0;
             }
 
-            // Apply gravity to the yVelocity
             yVelocity += gravity * Time.deltaTime;
         }
         else
         {
-            // Set velocity downward so that the CharacterController collides with the
-            // ground again, and isGrounded is set to true.
-            yVelocity = -2;
-
+            yVelocity = -2; // Small downward force to keep the character grounded
             fallingTime = 0;
 
-            // Jump!
             if (Input.GetKeyDown(KeyCode.Space)) 
             {
-                yVelocity = jumpVelocity;
+                yVelocity = jumpVelocity; // Jump when space is pressed
             }
         }
 
         // --- TRANSLATION ---
-        // Move the player forward based on the vAxis value
-        // Note, If the player isn't pressing up or down, vAxis will be 0 and there will be no movement
-        // based on input. However, yVelocity will still move the player downward.
         Vector3 amountToMove = transform.forward * moveSpeed * vAxis;
-
-        amountToMove.y += yVelocity;
-
+        amountToMove.y += yVelocity; // Include vertical velocity (gravity/jump)
         amountToMove *= Time.deltaTime;
+        cc.Move(amountToMove); // Move the character
 
-        // This will move the player according to the forward vector and the yVelocity using the
-        // CharacterController.
-        cc.Move(amountToMove);
+        // --- CAMERA POSITIONING ---
+        if (mainCamera != null)
+        {
+            // Position the camera behind and above the player
+            Vector3 cameraPosition = transform.position;
+            cameraPosition += -transform.forward * 10f; // Move back along the player's forward vector
+            cameraPosition += Vector3.up * 8f; // Raise the camera up
+            mainCamera.transform.position = cameraPosition; // Set the camera position
+
+            // Make the camera look at the player
+            mainCamera.transform.LookAt(transform.position);
+        }
     }
 }
