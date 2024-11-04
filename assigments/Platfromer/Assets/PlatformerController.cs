@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatformerController : MonoBehaviour
 {
     public CharacterController cc;
-    public Camera mainCamera; // Reference to the camera
+    public Camera mainCamera; 
 
     float rotateSpeed = 90;
     float moveSpeed = 12;
@@ -17,7 +17,7 @@ public class PlatformerController : MonoBehaviour
 
     void Start()
     {
-        // No need for initial camera offset; we'll set the camera position in Update.
+       
     }
 
     void Update()
@@ -25,7 +25,7 @@ public class PlatformerController : MonoBehaviour
         float hAxis = Input.GetAxis("Horizontal");
         float vAxis = Input.GetAxis("Vertical");
 
-        // --- ROTATION ---
+        
         transform.Rotate(0, rotateSpeed * hAxis * Time.deltaTime, 0);
 
         if (!cc.isGrounded) 
@@ -45,32 +45,54 @@ public class PlatformerController : MonoBehaviour
         }
         else
         {
-            yVelocity = -2; // Small downward force to keep the character grounded
+            yVelocity = -2; 
             fallingTime = 0;
 
             if (Input.GetKeyDown(KeyCode.Space)) 
             {
-                yVelocity = jumpVelocity; // Jump when space is pressed
+                yVelocity = jumpVelocity; 
             }
         }
 
-        // --- TRANSLATION ---
+    
         Vector3 amountToMove = transform.forward * moveSpeed * vAxis;
-        amountToMove.y += yVelocity; // Include vertical velocity (gravity/jump)
+        amountToMove.y += yVelocity; 
         amountToMove *= Time.deltaTime;
-        cc.Move(amountToMove); // Move the character
+        cc.Move(amountToMove); 
 
-        // --- CAMERA POSITIONING ---
+    
         if (mainCamera != null)
         {
-            // Position the camera behind and above the player
+      
             Vector3 cameraPosition = transform.position;
-            cameraPosition += -transform.forward * 10f; // Move back along the player's forward vector
-            cameraPosition += Vector3.up * 8f; // Raise the camera up
-            mainCamera.transform.position = cameraPosition; // Set the camera position
+            cameraPosition += -transform.forward * 10f; 
+            cameraPosition += Vector3.up * 8f;
+            mainCamera.transform.position = cameraPosition; 
 
-            // Make the camera look at the player
+ 
             mainCamera.transform.LookAt(transform.position);
         }
     }
+
+
+    public GameManager gameManager; 
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Collectable")) 
+        {
+            gameManager.CollectPresent(); 
+            Destroy(other.gameObject); 
+        }
+        else if (other.CompareTag("Key")) 
+        {
+            gameManager.CollectKey(); 
+            Destroy(other.gameObject); 
+        }
+        else if (other.CompareTag("Door"))
+        {
+            gameManager.TryOpenDoor(); 
+        }
+    }
 }
+
