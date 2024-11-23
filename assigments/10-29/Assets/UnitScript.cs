@@ -40,8 +40,8 @@ public Color selctedColor;
 
     void OnMouseDown()
     {
-        
         GameManager.instance.SelectUnit(this);
+       
        
     }
 }

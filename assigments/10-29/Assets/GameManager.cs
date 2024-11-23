@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
 
     public UnitScript selectedUnit;
 
-    //public static Action<UnitScript> UnitClicked;
-
+    public Camera mainCamera;
+    public TMP_Text scoreText;
+    
+    private int score = 0;
     public List<UnitScript> units = new List<UnitScript>();
     public TMP_Text nameText;
     public TMP_Text bioText;
@@ -41,7 +43,32 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.CompareTag("ground"))
+                {
+                    MovePlayer(hit.point);
+                }
+            }
+        }
+    }
+
+    void MovePlayer(Vector3 target)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("player");
+        if (player != null)
+        {
+            player.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(target);
+        }
+    }
+
+    public void Addscore (int amount)
+    {
+        score += amount;
+        scoreText.text = "Score: " + score;
     }
 
     public void OpenCharacterSheet()
@@ -61,7 +88,7 @@ public class GameManager : MonoBehaviour
             u.selected = false;
             u.bodyRenderer.material.color = u.normalColor;
          }
-        Debug.Log("test");
+
         selectedUnit = unit;
         unit.selected = true;
         unit.bodyRenderer.material.color = unit.selctedColor;
