@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public Rigidbody rb;
+    public float jumpHeight = 5f;
     public float moveSpeed = 5f;
     public float sprintSpeed = 8f;
     public float rotationSpeed = 10f;
@@ -12,17 +14,20 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody>();
+        }
     }
 
     // Update is called once per frame
     private void Update()
     {
-        // Get input for movement
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        // Calculate movement direction
+      
         movement = new Vector3(horizontal, 0f, vertical).normalized;
 
         // Move and rotate if there's input
@@ -40,6 +45,11 @@ public class PlayerScript : MonoBehaviour
             // Smoothly rotate to face movement direction
             Quaternion targetRotation = Quaternion.LookRotation(adjustedMovement);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
     }
 

@@ -2694,7 +2694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &643616916
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11298,10 +11298,10 @@ RectTransform:
   - {fileID: 698063324}
   m_Father: {fileID: 643616916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000013828, y: -0.000013828}
-  m_SizeDelta: {x: 696.7999, y: 444.1255}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 16, y: 0}
+  m_SizeDelta: {x: -653.2001, y: -574.4227}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &706651953
 MonoBehaviour:
@@ -11323,10 +11323,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The Game Instructions '
+  m_text: "Forgot what you need to collect!\n1. \n2.\n3.\nMake yous you get to bed
+    beofre sanat comes! if you need help Mabye ask a friends ?"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0c0957ef6282f41e2b75509634dae369, type: 2}
-  m_sharedMaterial: {fileID: 7630401629816902132, guid: 0c0957ef6282f41e2b75509634dae369, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1460bf1eb9aed4d69b9c21d6b3743d06, type: 2}
+  m_sharedMaterial: {fileID: 2539006968979268721, guid: 1460bf1eb9aed4d69b9c21d6b3743d06, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11350,15 +11351,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -11386,7 +11387,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 2.5100098}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -12164,6 +12165,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12238,13 +12240,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2022547, y: 0.43594798, z: -0.10158022, w: 0.8710476}
-  m_LocalPosition: {x: -37.38696, y: 26.849253, z: -28.950607}
+  m_LocalRotation: {x: 0.21314813, y: 0.006389565, z: -0.0017126235, w: 0.9769975}
+  m_LocalPosition: {x: -2.0529943, y: 4.840031, z: -14.924818}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35b9e20513f348978af124fe4dc1576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1315756719}
 --- !u!1 &983620314
 GameObject:
   m_ObjectHideFlags: 0
@@ -13546,22 +13561,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1315756723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315756719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42430e879c09748b9ae3c880caa3e9bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  sprintSpeed: 8
-  rotationSpeed: 10
-  movement: {x: 0, y: 0, z: 0}
 --- !u!136 &1315756724
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13597,6 +13596,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db49556d73e14ea48616abd3ca66fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  jumpHeight: 5
   moveSpeed: 5
   sprintSpeed: 8
   rotationSpeed: 10
@@ -14263,7 +14264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1d155940950c4f4a8a525df97798c73, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.21
+      value: 24.93
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1d155940950c4f4a8a525df97798c73, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14308,9 +14309,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b1d155940950c4f4a8a525df97798c73, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1315756721}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b1d155940950c4f4a8a525df97798c73, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1315756723}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b1d155940950c4f4a8a525df97798c73, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1315756724}
