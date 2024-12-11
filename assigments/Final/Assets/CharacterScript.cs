@@ -66,6 +66,14 @@ public class CharacterScript : MonoBehaviour
    
         characterController.Move(direction * Speed * Time.deltaTime);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("collect"))
+        {
+            GameManager.Instance.CollectItem(other.name);
+            Destroy(other.gameObject);
+        }
+    }
 }
 
 
