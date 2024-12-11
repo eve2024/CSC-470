@@ -73,6 +73,13 @@ public class CharacterScript : MonoBehaviour
             GameManager.Instance.CollectItem(other.name);
             Destroy(other.gameObject);
         }
+        if (other.CompareTag("bed"))
+        {
+            if (GameManager.Instance.snowflakeCollected >= 1 && GameManager.Instance.candycaneCollcted >= 1 && GameManager.Instance.bellCollected >= 1)
+            {
+                GameManager.Instance.WinGame();
+            }
+        }
     }
 }
 
