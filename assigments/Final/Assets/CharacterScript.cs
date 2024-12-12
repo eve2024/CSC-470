@@ -8,7 +8,7 @@ public class CharacterScript : MonoBehaviour
 
     // move
     public float Speed = 5f;
-    public float rotationSpeed = 10f;
+    public float rotationSpeed = 100f;
 
     // jump
     public float gravity = 10f;
@@ -31,19 +31,21 @@ public class CharacterScript : MonoBehaviour
 
     private void HandleMovement()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
 
-        if (direction.magnitude >= 0.1f)
-        {
+        Vector3 moveDirection = transform.forward * verticalInput;
+
         
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        moveDirection = moveDirection.normalized * Speed;
 
-           
-            Vector3 moveDirection = direction * Speed;
-            characterController.Move(moveDirection * Time.deltaTime);
+        moveDirection.y = velocity.y;
+
+        characterController.Move(moveDirection * Time.deltaTime);
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput != 0f)
+        {
+            transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
         }
     }
 
@@ -67,12 +69,11 @@ public class CharacterScript : MonoBehaviour
                 canDoubleJump = false;
             }
 
-            
-            velocity.y -= gravity * Time.deltaTime;
+            velocity.y -= gravity * Time.deltaTime; 
         }
 
-      
-        characterController.Move(velocity * Time.deltaTime);
+
+        characterController.Move(new Vector3(0, velocity.y, 0) * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -93,6 +94,7 @@ public class CharacterScript : MonoBehaviour
         }
     }
 }
+
 
 
 

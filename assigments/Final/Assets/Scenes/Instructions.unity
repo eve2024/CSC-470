@@ -182,14 +182,13 @@ MonoBehaviour:
   m_text: 'Instruction
 
 
-    Get ready for Santa by collecting cookies, milk, and
-    pajamas. Move with Arrow Keys, jump using Spacebar, and sprint with Shift. Ask
-    your friends in the game for help to find items or solve tasks. Finish everything
-    and get into bed before midnight to win. If time runs out, you lose.
+    Get ready for Santa by collecting candycane, snowflake,
+    and a bell. Move with Arrow Keys, jump using Spacebar. Ask your friends in the
+    game for help to find items or solve tasks. Finish everything and get into bed
+    before midnight to win. If time runs out, you lose.
 
 
-    Click
-    to Contiune '
+    Click to Contiune '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1460bf1eb9aed4d69b9c21d6b3743d06, type: 2}
   m_sharedMaterial: {fileID: 2539006968979268721, guid: 1460bf1eb9aed4d69b9c21d6b3743d06, type: 2}
