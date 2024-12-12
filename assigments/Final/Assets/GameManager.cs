@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -108,7 +109,10 @@ public class GameManager : MonoBehaviour
         loseScreen.SetActive(true);
     }
    
-
+    public void ResetGame()
+    {
+        SceneManager.LoadScene("TitleScreen");
+    }
     public void ClosePopUpWindow()
     {
         popUpWindow.SetActive(false);

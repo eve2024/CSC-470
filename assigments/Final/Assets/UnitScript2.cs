@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-public class UnitScript : MonoBehaviour
+public class UnitScript2 : MonoBehaviour
 {
     public GameManager gm;
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -18,10 +15,9 @@ public class UnitScript : MonoBehaviour
     {
         
     }
-    void OnMouseDown()
+     void OnMouseDown()
     {
-      Debug.Log("hi");
-      gm.popUpWindow.SetActive(true);
+      gm.snowMan.SetActive(true);
       
     
     }
