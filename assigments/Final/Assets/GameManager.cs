@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     public GameObject popUpWindow;
     public TMP_Text popUpText;
     public GameObject instructions;
+    public GameObject snowMan;
+    public TMP_Text SnowManText;
     // Start is called before the first frame update
     private bool gameWon = false;
     private void Awake()
@@ -105,11 +107,15 @@ public class GameManager : MonoBehaviour
         isTimerRunning = false;
         loseScreen.SetActive(true);
     }
-  
+   
 
     public void ClosePopUpWindow()
     {
         popUpWindow.SetActive(false);
+    }
+     public void CloseSnowManWindow()
+    {
+        snowMan.SetActive(false);
     }
     public void ShowInstructions()
     {

@@ -22,6 +22,7 @@ public class UnitScript : MonoBehaviour
     {
       Debug.Log("hi");
       gm.popUpWindow.SetActive(true);
+      gm.snowMan.SetActive(true);
     
     }
 }

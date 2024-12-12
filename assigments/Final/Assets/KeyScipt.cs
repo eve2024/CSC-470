@@ -5,17 +5,17 @@ using UnityEngine;
 public class KeyScipt : MonoBehaviour
 {
     public GameObject doorCollider;
-    private DoorScript doorScript;
+
     // Start is called before the first frame update
     void Start()
     {
-        //doorCollider.SetActive(false);
+        doorCollider.SetActive(true);
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            doorCollider.SetActive(true);
+            doorCollider.SetActive(false);
             Destroy(gameObject);
         }
     }
