@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public int totalItems = 3;
     public float timer = 60f;
     public bool isTimerRunning = true;
-    
+    private float currentTime;
     //UI Elemnts 
     public TMP_Text timerText;
     public TMP_Text collectionText;
@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void Start()
+    {
+        LoadGame();
+    }
+
     private void Update()
     {
         if (isTimerRunning && !gameWon)
@@ -62,18 +67,21 @@ public class GameManager : MonoBehaviour
                 snowflakeCollected ++;
                 snowflakeText.text = "x Snowflake";
                 Debug.Log("snowflake");
+                SaveGame();
                 break;
 
                 case "candyCane":
                 candycaneCollcted ++;
                 candyCaneText.text = "x Candy Cane";
                 Debug.Log("candyCane");
+                SaveGame();
                 break;
 
                 case "Bell":
                 bellCollected ++;
                 bellText.text = "x Bell";
                 Debug.Log("bells");
+                SaveGame();
                 break;
         }
         
@@ -102,17 +110,55 @@ public class GameManager : MonoBehaviour
         gameWon = true;
         isTimerRunning = false;
         winScreen.SetActive(true);
+        PlayerPrefs.SetInt("GameWon", 1);
+        PlayerPrefs.Save();
     }
     public void LoseGame()
     {
         isTimerRunning = false;
         loseScreen.SetActive(true);
+        PlayerPrefs.SetInt("GameWon", 0);
+        PlayerPrefs.Save();
     }
    
     public void ResetGame()
     {
+        PlayerPrefs.DeleteAll();
         SceneManager.LoadScene("TitleScreen");
     }
+    public void SaveGame()
+    {
+        PlayerPrefs.SetInt("Snowflakes", snowflakeCollected);
+        PlayerPrefs.SetInt("CandyCanes", candycaneCollcted);
+        PlayerPrefs.SetInt("Bells", bellCollected);
+        PlayerPrefs.SetFloat("Timer", timer);
+        PlayerPrefs.Save();
+    }
+    private void LoadGame()
+    {
+        
+        snowflakeCollected = PlayerPrefs.GetInt("Snowflakes", 0);
+        candycaneCollcted = PlayerPrefs.GetInt("CandyCanes", 0);
+        bellCollected = PlayerPrefs.GetInt("Bells", 0);
+        timer = PlayerPrefs.GetFloat("Timer", 60f);
+
+       
+        snowflakeText.text = $"Snowflake: {snowflakeCollected}";
+        candyCaneText.text = $"Candy Cane: {candycaneCollcted}";
+        bellText.text = $"Bell: {bellCollected}";
+        timerText.text = $"Time: {Mathf.Ceil(timer)}";
+
+        Debug.Log(PlayerPrefs.GetInt("Snowflakes"));
+        Debug.Log(PlayerPrefs.GetFloat("Timer"));
+
+    }
+    public void RestartTimer()
+    {
+        currentTime = timer;
+        timerText.text = Mathf.Ceil(currentTime).ToString();
+    }
+
+
     public void ClosePopUpWindow()
     {
         popUpWindow.SetActive(false);
