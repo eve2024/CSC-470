@@ -2598,8 +2598,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4751425, y: 0.38644528, z: 2.0334873}
-  m_Center: {x: -0.8162408, y: 0.9263724, z: 0.28810072}
+  m_Size: {x: 1.8927803, y: 0.91819215, z: 2.119874}
+  m_Center: {x: -0.6074219, y: 0.660499, z: 0.33129406}
 --- !u!1001 &416410873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18896,8 +18896,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2635739, y: 0.6739819, z: 1.7893649}
-  m_Center: {x: 0.3154291, y: 0.00952054, z: 0.85158044}
+  m_Size: {x: 1.4926863, y: 0.6739819, z: 1.6264691}
+  m_Center: {x: 0.514262, y: 0.00952054, z: 0.7701331}
 --- !u!1 &1954011274
 GameObject:
   m_ObjectHideFlags: 0
@@ -19020,8 +19020,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439d13189114d490298ea6eef02e5577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 7.04
-  rotationSpeed: 50
+  Speed: 15.8
+  rotationSpeed: 75
   gravity: 10
   jumpSpeed: 3
   doubleJumpMultiplier: 1.5
