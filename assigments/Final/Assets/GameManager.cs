@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     }
     public void Start()
     {
-     
+      
     }
 
     private void Update()
@@ -116,7 +116,6 @@ public class GameManager : MonoBehaviour
    
     public void ResetGame()
     {
-        
         SceneManager.LoadScene("TitleScreen");
     }
     public void RestartTimer()
